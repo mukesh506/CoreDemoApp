@@ -1,4 +1,13 @@
 # Docker
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+- task: CopyFiles@2
+  inputs:
+    Contents: 'deployment.azure.yaml'
+    TargetFolder: '$(build.artifactstagingdirectory)'
 # Build and push an image to Azure Container Registry
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
@@ -37,3 +46,5 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+
+          
